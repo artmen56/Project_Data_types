@@ -1,5 +1,8 @@
 #include <iostream>
 #include <string>
+#include <cstdint> // Для uint32_t
+#include <cstring> // Для функции memcpy
+
 
 void sizeOfTypes() {
     std::cout << "Size of int: " << sizeof(int) << " bytes" << '\n';
@@ -13,13 +16,16 @@ void sizeOfTypes() {
     std::cout << "Size of bool: " << sizeof(bool) << " bytes" << '\n';
 }
 
-void convertIntToBin (int n, int width = 32) {
-    unsigned u = static_cast<unsigned>(n); // Представляем n типа int в виде unsigned с помощью static_cast
+void convertIntToBin (int value, int width = 32) {
+    unsigned u = static_cast<unsigned>(value); // Представляем n типа int в виде unsigned с помощью static_cast
     for (int i = width - 1; i >= 0; i--) { // Цикл от страрших битов числа к младшим
         if (i == width - 1) {
-            std::cout << "sign ->";
+            std::cout << "[sign]";
         }
-        putchar((u >> i) & 1 ? '1' : '0'); // Выводим симво '1' если при смещении битов u на i битов вправо, в нулевой позиции стоит '1'
+        putchar((u >> i) & 1 ? '1' : '0'); // Выводим символ '1' если при смещении битов u на i битов вправо, в нулевой позиции стоит '1'
+        if (i == (width - 1)){
+            std::cout << " ";
+        }
         if ((width - 1 - i) % 8 == 7) { // Если осток от деления номера бита на 8 равен 7, то отделям биты пробелом
             std::cout << " ";
         }
@@ -27,12 +33,35 @@ void convertIntToBin (int n, int width = 32) {
     std::cout << '\n';
 }
 
+void printFloatBits(float value){
+    uint32_t bits;
+    std::memcpy(&bits, &value, sizeof(float)); // Копируем биты числа типа float в переменную bits типа uint32_t
+    
+    std::cout << "[sign]" << ((bits >> 31) & 1u);
+    
+    std::cout << " [exponent]";
+    for (int i = 30; i >= 23; --i){
+        std::cout << ((bits >> i) & 1u);
+    }
+
+    std::cout << " [mantissa]";
+    for (int i = 22; i >= 0; --i){
+        std::cout << ((bits >> i) & 1u);
+    }
+
+    std::cout << '\n';
+}
+
 int main() {
     sizeOfTypes();
-    
-    int n;
-    std::cout << "Введите число n: ";
-    std::cin >> n;
-    convertIntToBin(n);
+    int valueInt;
+    std::cout << "Введите число типа int для вывода всех битов от старшего к младшему: ";
+    std::cin >> valueInt;
+    convertIntToBin(valueInt);
+    float valueFloat;
+    std::cout << "Введите число типа float для получения битового представления: ";
+    std::cin >> valueFloat;
+    printFloatBits(valueFloat);
+
     return 0;
 }
