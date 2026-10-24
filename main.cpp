@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <cstdio>
 #include <cstdint> // Для uint32_t
 #include <cstring> // Для функции memcpy
 
@@ -52,16 +53,68 @@ void printFloatBits(float value){
     std::cout << '\n';
 }
 
+void printDoubleBits(double value){
+    uint64_t bits;
+    std::memcpy(&bits, &value, sizeof(double)); // Копируем биты числа типа double в переменную bits типа uint64_t
+    
+    std::cout << "[sign]" << ((bits >> 63) & 1ull);
+    
+    std::cout << " [exponent]";
+    for (int i = 62; i >= 52; --i){
+        std::cout << ((bits >> i) & 1ull);
+    }
+
+    std::cout << " [mantissa]";
+    for (int i = 51; i >= 0; --i){
+        std::cout << ((bits >> i) & 1ull);
+    }
+
+    std::cout << '\n';
+}
+
 int main() {
     sizeOfTypes();
+
     int valueInt;
     std::cout << "Введите число типа int для вывода всех битов от старшего к младшему: ";
     std::cin >> valueInt;
     convertIntToBin(valueInt);
+
     float valueFloat;
     std::cout << "Введите число типа float для получения битового представления: ";
     std::cin >> valueFloat;
     printFloatBits(valueFloat);
+    std::cout << '\n';
 
+    std::cout << "Print for 3.14: " << '\n';
+    printFloatBits(3.14);
+    std::cout << '\n';
+
+    std::cout << "Print for -2.5: " << '\n';
+    printFloatBits(-2.5);
+    std::cout << '\n';
+
+    std::cout << "Print for 0.0: " << '\n';
+    printFloatBits(0.0);
+    std::cout << '\n';
+    printFloatBits(valueFloat);
+
+    double valueDouble;
+    std::cout << "Введите число типа double для получения битового представления: ";
+    std::cin >> valueDouble;
+    printDoubleBits(valueDouble);
+    printFloatBits(valueFloat);
+
+    std::cout << "Print for 3.14: " << '\n';
+    printDoubleBits(3.14);
+    std::cout << '\n';
+
+    std::cout << "Print for -2.5: " << '\n';
+    printDoubleBits(-2.5);
+    std::cout << '\n';
+
+    std::cout << "Print for 0.0: " << '\n';
+    printDoubleBits(0.0);
+    std::cout << '\n';
     return 0;
 }
