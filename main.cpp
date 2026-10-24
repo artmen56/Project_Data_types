@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <cstdint> // Для uint32_t
 #include <cstring> // Для функции memcpy
+#include <limits>
 
 
 void sizeOfTypes() {
@@ -72,6 +73,54 @@ void printDoubleBits(double value){
     std::cout << '\n';
 }
 
+void printExamplesFloatBits() {
+    std::cout << "Вывод битового предствления числа 3.14: " << '\n';
+    printFloatBits(3.14);
+    std::cout << '\n';
+
+    std::cout << "Вывод битового предствления числа -2.5: " << '\n';
+    printFloatBits(-2.5);
+    std::cout << '\n';
+
+    std::cout << "Вывод битового предствления числа 0.0: "<< '\n';
+    printFloatBits(0.0);
+    std::cout << '\n';
+
+    float denormFloat = std::numeric_limits<float>::denorm_min();
+    std::cout << "Вывод битового представления денормализованного числа (float): ";
+    printFloatBits(denormFloat);
+    std::cout << '\n';
+
+    float infFloat = std::numeric_limits<float>::infinity();
+    std::cout << "Вывод битового представления inf (float): ";
+    printFloatBits(infFloat);
+    std::cout << '\n';
+}
+
+void printExamplesDoubleBits(){
+    std::cout << "Вывод битового предствления числа 3.14: " << '\n';
+    printDoubleBits(3.14);
+    std::cout << '\n';
+
+    std::cout << "Вывод битового предствления числа -2.5: " << '\n';
+    printDoubleBits(-2.5);
+    std::cout << '\n';
+
+    std::cout << "Вывод битового предствления числа 0.0: " << '\n';
+    printDoubleBits(0.0);
+    std::cout << '\n';
+
+    double denormDouble = std::numeric_limits<double>::denorm_min();
+    std::cout << "Вывод битового представления денормализованного числа (double): ";
+    printDoubleBits(denormDouble);
+    std::cout << '\n';
+
+    float infDouble = std::numeric_limits<double>::infinity();
+    std::cout << "Вывод битового представления inf (double): ";
+    printDoubleBits(infDouble);
+    std::cout << '\n';
+}
+
 int main() {
     sizeOfTypes();
 
@@ -86,35 +135,16 @@ int main() {
     printFloatBits(valueFloat);
     std::cout << '\n';
 
-    std::cout << "Print for 3.14: " << '\n';
-    printFloatBits(3.14);
-    std::cout << '\n';
-
-    std::cout << "Print for -2.5: " << '\n';
-    printFloatBits(-2.5);
-    std::cout << '\n';
-
-    std::cout << "Print for 0.0: " << '\n';
-    printFloatBits(0.0);
-    std::cout << '\n';
-    printFloatBits(valueFloat);
+    printExamplesFloatBits();
 
     double valueDouble;
     std::cout << "Введите число типа double для получения битового представления: ";
     std::cin >> valueDouble;
     printDoubleBits(valueDouble);
-    printFloatBits(valueFloat);
-
-    std::cout << "Print for 3.14: " << '\n';
-    printDoubleBits(3.14);
     std::cout << '\n';
 
-    std::cout << "Print for -2.5: " << '\n';
-    printDoubleBits(-2.5);
-    std::cout << '\n';
+    printExamplesDoubleBits();
 
-    std::cout << "Print for 0.0: " << '\n';
-    printDoubleBits(0.0);
-    std::cout << '\n';
+
     return 0;
 }
