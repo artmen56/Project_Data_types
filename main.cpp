@@ -17,7 +17,7 @@ void sizeOfTypes() {
     std::cout << "Size of bool: " << sizeof(bool) << " bytes" << '\n';
 }
 
-void convertIntToBin (int value, int width = 32) {
+void printIntBits (int value, int width = 32) {
     unsigned u = static_cast<unsigned>(value); // Представляем n типа int в виде unsigned с помощью static_cast
     for (int i = width - 1; i >= 0; i--) { // Цикл от страрших битов числа к младшим
         if (i == width - 1) {
@@ -195,11 +195,11 @@ void printExampleBitManipulation() {
     std::cout << "Установка бита 2 для числа типа int равного 10" << '\n';
     std::cout << "Исходное значение: " << intValue << '\n';
     std::cout << "Биты до операции: " << '\n';
-    convertIntToBin(intValue);
+    printIntBits(intValue);
 
     std::cout << "Результат: " << intResult << '\n';
     std::cout << "Биты после операции:" << '\n';
-    convertIntToBin(intResult);
+    printIntBits(intResult);
     std::cout << '\n';
 
 
@@ -209,11 +209,11 @@ void printExampleBitManipulation() {
     std::cout << "Сброс бита 3 для числа типа int равного 10" << '\n';
     std::cout << "Исходное значение: " << intValue << '\n';
     std::cout << "Биты до операции: " << '\n';
-    convertIntToBin(intValue);
+    printIntBits(intValue);
 
     std::cout << "Результат: " << intResult << '\n';
     std::cout << "Биты после операции: " << '\n';
-    convertIntToBin(intResult);
+    printIntBits(intResult);
     std::cout << '\n';
 
 
@@ -223,11 +223,11 @@ void printExampleBitManipulation() {
     std::cout << "Инверсия бита 1 для числа типа int равного 10" << '\n';
     std::cout << "Исходное значение: " << intValue << '\n';
     std::cout << "Биты до операции:" << '\n';
-    convertIntToBin(intValue);
+    printIntBits(intValue);
 
     std::cout << "Результат: " << intResult << '\n';
     std::cout << "Биты после операции:" << '\n';
-    convertIntToBin(intResult);
+    printIntBits(intResult);
     std::cout << '\n';
 
 
@@ -258,43 +258,9 @@ void printExampleBitManipulation() {
     std::cout << "Результат: " << doubleResult << '\n';
     std::cout << "Биты после операции:" << '\n';
     printDoubleBits(doubleResult);
-
 }
 
-int main() {
-    std::cout << "\n===== РАЗМЕРЫ ТИПОВ =====\n";
-    sizeOfTypes();
-
-
-    std::cout << "\n===== INT =====\n";
-    int valueInt;
-    std::cout << "Введите число типа int для вывода всех битов от старшего к младшему: ";
-    std::cin >> valueInt;
-    convertIntToBin(valueInt);
-
-
-    std::cout << "\n===== FLOAT IEEE 754 =====\n";
-    float valueFloat;
-    std::cout << "Введите число типа float для получения битового представления: ";
-    std::cin >> valueFloat;
-    printFloatBits(valueFloat);
-    std::cout << '\n';
-
-    std::cout << "\n===== ВЫВОД ПРИМЕРОВ ДЛЯ FLOAT IEEE 754 =====\n";
-    printExamplesFloatBits();
-
-    
-    std::cout << "\n===== DOUBLE IEEE 754 =====\n";
-    double valueDouble;
-    std::cout << "Введите число типа double для получения битового представления: ";
-    std::cin >> valueDouble;
-    printDoubleBits(valueDouble);
-    std::cout << '\n';
-
-    std::cout << "\n===== ВЫВОД ПРИМЕРОВ ДЛЯ DOUBLE IEEE 754 =====\n";
-    printExamplesDoubleBits();
-
-    std::cout << "\n===== ОПЕРАЦИИ С БИТАМИ =====\n";
+void inputOpearationWithBitsInt() {
     std::cout << "Введите число типа int для выполнения операции с битом: " << '\n';
     int valueIntOperation;
     std::cin >> valueIntOperation;
@@ -314,16 +280,17 @@ int main() {
     std::cout << '\n';
 
     std::cout << "Битовое представление до операции: " << '\n';
-    convertIntToBin(valueIntOperation);
+    printIntBits(valueIntOperation);
 
     int resultInt = operationsWithBitsInt(valueIntOperation, numberBitInt, numberOperationInt);
 
     std::cout << "Результат операции: " << resultInt << '\n';
     std::cout << "Битовое представление результата операции: " << '\n';
-    convertIntToBin(resultInt);
+    printIntBits(resultInt);
     std::cout << '\n';  
+}
 
-    
+void inputOperationWithBitsFloat() {
     std::cout << "Введите число типа float для выполнения операции с битом: " << '\n';
     float valueFloatOperation;
     std::cin >> valueFloatOperation;
@@ -352,8 +319,9 @@ int main() {
     std::cout << "Битовое представление результата операции: " << '\n';
     printFloatBits(resultFloat);
     std::cout << '\n';
+}
 
-    
+void inputOperationWithBitsDouble() {
     std::cout << "Введите число типа double для выполнения операции с битом: " << '\n';
     double valueDoubleOperation;
     std::cin >> valueDoubleOperation;
@@ -381,8 +349,95 @@ int main() {
     std::cout << "Битовое представление результата операции: " << '\n';
     printDoubleBits(resultDouble);
     std::cout << '\n';
+}
+
+int multiplyByTwoWithShift(int value) {
+    unsigned bits = static_cast<unsigned>(value);
+    bits <<= 1;
+    return static_cast<int>(bits);
+}
+
+void inputMultiplyByTwoWithShift() {
+    std::cout << "Введите число, которое необходимо умножить на два: " << '\n';
+    int valueForMultiplyByTwo;
+    std::cin >> valueForMultiplyByTwo;
+    std::cout << "Битовое представление до операции: " << '\n';
+    printIntBits(valueForMultiplyByTwo);
+    int resultMultiply = multiplyByTwoWithShift(valueForMultiplyByTwo);
+    std::cout << "Результат операции: " << resultMultiply << '\n';
+    std::cout << "Битовое представление результата операции: " << '\n';
+    printIntBits(resultMultiply);
+    std::cout << '\n';
+}
+
+void printExampleMultiplyByTwo() {
+    int value = 5;
+
+    std::cout << "Умножение числа 5 на 2 с помощью битового сдвига\n";
+
+    std::cout << "Исходное значение: " << value << '\n';
+    std::cout << "Битовое представление до сдвига:\n";
+    printIntBits(static_cast<int>(value));
+
+    unsigned result = multiplyByTwoWithShift(value);
+
+    std::cout << "Битовое представление после сдвига влево на 1:\n";
+    printIntBits(static_cast<int>(result));
+
+    std::cout << "Результат: " << result << '\n';
+}
+
+int main() {
+    std::cout << "\n===== РАЗМЕРЫ ТИПОВ =====\n";
+    sizeOfTypes();
+    std::cout << '\n';
+
+
+    std::cout << "===== INT =====" << '\n' ;
+    int valueInt;
+    std::cout << "Введите число типа int для вывода всех битов от старшего к младшему: ";
+    std::cin >> valueInt;
+    printIntBits(valueInt);
+    std::cout << '\n';
+
+    std::cout << "===== FLOAT IEEE 754 =====" << '\n';
+    float valueFloat;
+    std::cout << "Введите число типа float для получения битового представления: ";
+    std::cin >> valueFloat;
+    printFloatBits(valueFloat);
+    std::cout << '\n';
+
+    std::cout << "===== ВЫВОД ПРИМЕРОВ ДЛЯ FLOAT IEEE 754 =====" << '\n';
+    printExamplesFloatBits();
+    std::cout << '\n';
+    
+    std::cout << "===== DOUBLE IEEE 754 =====" << '\n';
+    double valueDouble;
+    std::cout << "Введите число типа double для получения битового представления: ";
+    std::cin >> valueDouble;
+    printDoubleBits(valueDouble);
+    std::cout << '\n';
+
+    std::cout << "===== ВЫВОД ПРИМЕРОВ ДЛЯ DOUBLE IEEE 754 =====\n";
+    printExamplesDoubleBits();
+    std::cout << '\n';
+
+    std::cout << "===== ОПЕРАЦИИ С БИТАМИ =====" << '\n';
+
+    inputOpearationWithBitsInt();
+
+    inputOperationWithBitsFloat();
+
+    inputOperationWithBitsDouble();
 
     printExampleBitManipulation();
+    std::cout << '\n';
+
+    std::cout << "===== УМНОЖЕНИЕ НА ДВА ЧЕРЕЗ ПОБИТОВЫЙ СДВИГ =====" << '\n';
+
+    inputMultiplyByTwoWithShift();
+
+    printExampleMultiplyByTwo();
 
     return 0;
 }
