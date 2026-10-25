@@ -1,5 +1,7 @@
 #pragma once
 
+void printExamplesIntBits();
+
 void printExampleUnsignedBits();
 
 void printExamplesFloatBits();

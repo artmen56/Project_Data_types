@@ -13,6 +13,10 @@ int main() {
     std::cout << "===== INT =====" << '\n' ;
     inputIntBits();
 
+    
+    std::cout << "===== ВЫВОД ПРИМЕРОВ ДЛЯ  INT =====" << '\n' ;
+    printExamplesIntBits();
+
     std::cout << "===== UNSIGNED =====" << '\n' ;
     printExampleUnsignedBits();
 

@@ -5,6 +5,17 @@
 #include <iostream>
 #include <limits>
 
+void printExamplesIntBits() {
+    std::cout << "Положительное число 5:" << '\n';
+    printIntBits(5);
+
+    std::cout << "Отрицательное число -5:" << '\n';
+    printIntBits(-5);
+
+    std::cout << "Ноль:" << '\n';
+    printIntBits(0);
+}
+
 void printExampleUnsignedBits() {
     unsigned value = 10;
 
